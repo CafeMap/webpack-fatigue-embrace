@@ -21,6 +21,5 @@ let options = {
 }
 
 let wfe = new WebapckFatigueEmbrace(options)
-console.log(wfe)
 
 module.exports = wfe
