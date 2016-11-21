@@ -55,6 +55,10 @@ function WebapckFatigueEmbrace(options, customOptions) {
         this.options.output.publicPath = isFunction(options.output.publicPath) ? options.output.publicPath(__dirname) : options.output.publicPath || 'build'
     }
 
+    if (options.externals) {
+      this.options.externals = isFunction(options.externals) ? options.externals() : options.externals || []
+    }
+
     if (options.module) {
       this.options.module = isFunction(options.module) ? options.module(__dirname) : assign({}, { loaders: concat(DefaultModule.loaders, options.module) }) || DefaultModule
     }
