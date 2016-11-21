@@ -6,8 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CafeMap/webpack-fatigue-embrace"
+  },
   "keywords": [],
-  "author": "",
+  "author": "Whien_Liou <sal95610@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.18.2",
