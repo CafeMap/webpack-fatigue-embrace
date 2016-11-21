@@ -23,6 +23,12 @@ module.exports = wfe
 ## Default Config
 
 ```javascript
+let DefaultModule = {
+  loaders: [
+    { test: /\.js$/, exclude: /node_modules/, loader: 'babel' }
+  ]
+}
+
 let DefaultDevEnvSetting = {
   entry: './src/index.js',
   output: {
