@@ -14,7 +14,8 @@
 
 ```javascript
 let builder = require('webpack-fatigue-embrace')
-let wfe = new builder(options)
+
+let wfe = new builder()
 
 module.exports = wfe
 ```
