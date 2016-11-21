@@ -44,9 +44,16 @@ function WebapckFatigueEmbrace(options, customOptions) {
     }
 
     if (options.output) {
-      this.options.output.path = isFunction(options.output.path) ? options.output.path(__dirname) : options.output.path || path.resolve(__dirname, 'build')
-      this.options.output.filename = isFunction(options.output.filename) ? options.output.filename(__dirname) : options.output.filename || './bundle.js'
-      this.options.output.publicPath = isFunction(options.output.publicPath) ? options.output.publicPath(__dirname) : options.output.publicPath || 'build'
+      if (options.libOnly) {
+        this.options.libOnly = true
+        this.options.output = {}
+        this.options.output.library = isFunction(options.output.library) ? options.output.library() : options.output.library
+        this.options.output.libraryTarget = isFunction(options.output.libraryTarget) ? options.output.libraryTarget() : options.output.libraryTarget || target
+      } else {
+        this.options.output.path = isFunction(options.output.path) ? options.output.path(__dirname) : options.output.path || path.resolve(__dirname, 'build')
+        this.options.output.filename = isFunction(options.output.filename) ? options.output.filename(__dirname) : options.output.filename || './bundle.js'
+        this.options.output.publicPath = isFunction(options.output.publicPath) ? options.output.publicPath(__dirname) : options.output.publicPath || 'build'
+      }
     }
 
     if (options.module) {
@@ -58,12 +65,12 @@ function WebapckFatigueEmbrace(options, customOptions) {
         let plugins = []
         if (options.plugins.normal) {
           options.plugins.normal.forEach(function(key) {
-            plugins.push(eval(`new webpack.${key[0]}Plugin(${key[1]})`))
+            plugins.push(eval(`new webpack.${key[0]}Plugin(${JSON.stringify(key[1])})`))
           })
         }
         if (options.plugins.optimize) {
           options.plugins.optimize.forEach(function(key) {
-            plugins.push(eval(`new webpack.optimize.${key[0]}Plugin(${key[1]})`))
+            plugins.push(eval(`new webpack.optimize.${key[0]}Plugin(${JSON.stringify(key[1])})`))
           })
         }
         return plugins
@@ -77,6 +84,11 @@ function WebapckFatigueEmbrace(options, customOptions) {
 let wfep = WebapckFatigueEmbrace.prototype
 
 wfep.devBuilder = function(setting) {
+  if (this.options.libOnly) {
+    delete DefaultDevEnvSetting.output.path
+    delete DefaultDevEnvSetting.output.filename
+    delete DefaultDevEnvSetting.output.publicPath
+  }
   return Object.assign({}, DefaultDevEnvSetting, setting, this.customOptions, this.options)
 }
 
