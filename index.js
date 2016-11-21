@@ -58,12 +58,12 @@ function WebapckFatigueEmbrace(options, customOptions) {
         let plugins = []
         if (options.plugins.normal) {
           options.plugins.normal.forEach(function(key) {
-            plugins.push(eval(`new webpack.${key}Plugin(${key.options})`))
+            plugins.push(eval(`new webpack.${key[0]}Plugin(${key[1]})`))
           })
         }
         if (options.plugins.optimize) {
           options.plugins.optimize.forEach(function(key) {
-            plugins.push(eval(`new webpack.optimize.${key}Plugin(${key.option})`))
+            plugins.push(eval(`new webpack.optimize.${key[0]}Plugin(${key[1]})`))
           })
         }
         return plugins
