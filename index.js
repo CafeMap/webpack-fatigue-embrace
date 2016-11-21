@@ -44,9 +44,9 @@ function WebapckFatigueEmbrace(options, customOptions) {
     }
 
     if (options.output) {
+      this.options.output = Object.assign({}, DefaultDevEnvSetting.output)
       if (options.libOnly) {
         this.libOnly = true
-        this.options.output = {}
         this.options.output.library = isFunction(options.output.library) ? options.output.library() : options.output.library
         this.options.output.libraryTarget = isFunction(options.output.libraryTarget) ? options.output.libraryTarget() : options.output.libraryTarget || target
       }
